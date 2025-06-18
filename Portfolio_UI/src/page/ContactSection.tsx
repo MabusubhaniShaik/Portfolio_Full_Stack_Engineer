@@ -1,3 +1,5 @@
+"use client";
+import React, { useState } from "react";
 import { AuroraText } from "@/components/magicui/aurora-text"; // Magic UI Aurora Text for animated heading
 import { Input } from "@/components/ui/input"; // shadcn/ui Input
 import { Textarea } from "@/components/ui/textarea"; // shadcn/ui Textarea
@@ -7,8 +9,35 @@ import {
   IconBrandGithub,
   IconMail,
 } from "@tabler/icons-react"; // Icons for social links
+import { sendContactMessage } from "@/services/apiService"; // Import from apiServices
 
 const ContactSection = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [message, setMessage] = useState<string | null>(null);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setMessage(null); // Clear previous message
+
+    try {
+      const response = await sendContactMessage(formData);
+      setMessage(response.message || "Message sent successfully!");
+    } catch (error) {
+      setMessage("Failed to send message. Please try again later.");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#000000] flex items-center justify-center py-[2%] px-[2%]">
       <div className="relative z-10 max-w-[90%] mx-auto">
@@ -31,7 +60,7 @@ const ContactSection = () => {
             <h2 className="text-[0.75rem] font-semibold text-white mb-4">
               Send a Message
             </h2>
-            <div className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label
                   htmlFor="name"
@@ -41,7 +70,10 @@ const ContactSection = () => {
                 </label>
                 <Input
                   id="name"
+                  name="name"
                   type="text"
+                  value={formData.name}
+                  onChange={handleChange}
                   placeholder="Your name"
                   className="bg-neutral-800 text-white border-neutral-600 focus:border-blue-500 text-[0.625rem]"
                 />
@@ -55,7 +87,10 @@ const ContactSection = () => {
                 </label>
                 <Input
                   id="email"
+                  name="email"
                   type="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   placeholder="Your email"
                   className="bg-neutral-800 text-white border-neutral-600 focus:border-blue-500 text-[0.625rem]"
                 />
@@ -69,21 +104,27 @@ const ContactSection = () => {
                 </label>
                 <Textarea
                   id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
                   placeholder="Your message"
                   className="bg-neutral-800 text-white border-neutral-600 focus:border-blue-500 text-[0.625rem] h-32"
                 />
               </div>
               <Button
-                className="bg-blue-500 hover:bg-blue-600 text-white text-[0.625rem] px-4 py-2 rounded-full"
-                disabled
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-600 text-white text-[0.625rem] px-4 py-2 rounded-full w-full"
               >
                 Send Message
               </Button>
+              {message && (
+                <p className="text-[0.625rem] text-gray-400 mt-2">{message}</p>
+              )}
               <p className="text-[0.625rem] text-gray-400">
                 Note: Form submission is disabled due to sandbox restrictions.
                 This form would typically submit to a backend endpoint.
               </p>
-            </div>
+            </form>
           </div>
 
           {/* Social Links */}
