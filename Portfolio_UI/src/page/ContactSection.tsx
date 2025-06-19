@@ -4,11 +4,7 @@ import { AuroraText } from "@/components/magicui/aurora-text"; // Magic UI Auror
 import { Input } from "@/components/ui/input"; // shadcn/ui Input
 import { Textarea } from "@/components/ui/textarea"; // shadcn/ui Textarea
 import { Button } from "@/components/ui/button"; // shadcn/ui Button
-import {
-  IconBrandLinkedin,
-  IconBrandGithub,
-  IconMail,
-} from "@tabler/icons-react"; // Icons for social links
+import { IconBrandLinkedin, IconBrandGithub } from "@tabler/icons-react"; // Removed IconMail
 import { sendContactMessage } from "@/services/apiService"; // Import from apiServices
 
 const ContactSection = () => {
@@ -132,9 +128,9 @@ const ContactSection = () => {
             <h2 className="text-[0.75rem] font-semibold text-white mb-6">
               Connect with Me
             </h2>
-            <div className="flex gap-6">
+            <div className="flex gap-6 mb-4">
               <a
-                href="https://linkedin.com/in/your-profile"
+                href="http://linkedin.com/in/mabusubhani-shaik-839b561b1/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-white hover:text-blue-500 transition-transform transform hover:scale-110"
@@ -142,20 +138,20 @@ const ContactSection = () => {
                 <IconBrandLinkedin size={40} />
               </a>
               <a
-                href="https://github.com/your-profile"
+                href="https://github.com/Mabusubhani786"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-white hover:text-blue-500 transition-transform transform hover:scale-110"
               >
                 <IconBrandGithub size={40} />
               </a>
-              <a
-                href="mailto:your-email@example.com"
-                className="text-white hover:text-blue-500 transition-transform transform hover:scale-110"
-              >
-                <IconMail size={40} />
-              </a>
             </div>
+            <AuroraText
+              className="text-[1rem] text-center"
+              colors={["#3b82f6", "#8b5cf6"]} // Blue to purple gradient
+            >
+              subhanishaik3849@gmail.com
+            </AuroraText>
           </div>
         </div>
       </div>

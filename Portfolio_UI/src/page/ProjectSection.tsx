@@ -1,7 +1,8 @@
 "use client";
-import React from "react";
 import { AuroraText } from "@/components/magicui/aurora-text"; // Magic UI Aurora Text for animated heading
 import Carousel from "@/components/ui/carousel"; // Aceternity UI Carousel
+import ZentriImg from "../assets/projectImg/Zentri.png";
+import FrameFlixImg from "../assets/projectImg/FrameFlix.png";
 
 // SlideData interface for carousel slides
 interface SlideData {
@@ -18,37 +19,41 @@ const ProjectSection = () => {
       title: "Zentri",
       description: "Minimalist financial platform for budgeting and tracking.",
       button: "Learn More",
-      src: "https://via.placeholder.com/1200x600.png?text=Zentri",
+      src: ZentriImg,
     },
     {
       title: "FrameFlix",
       description: "IMDB-inspired movie & series app with advanced features.",
       button: "Visit Site",
       url: "https://frame-flix.vercel.app/",
-      src: "https://via.placeholder.com/1200x600.png?text=FrameFlix",
-    },
-    {
-      title: "VeloxMediQ",
-      description:
-        "Hybrid doctor appointment system for online/offline consultations.",
-      button: "Learn More",
-      src: "https://via.placeholder.com/1200x600.png?text=VeloxMediQ",
+      src: FrameFlixImg,
     },
   ];
 
   const upcomingProjects: SlideData[] = [
     {
-      title: "EduTrack",
+      title: "VeloxMediQ",
       description:
-        "A platform for tracking student progress and performance analytics.",
+        "VeloxMediQ – Healthcare Appointment Booking System 📝 Project Overview VeloxMediQ is a modern, efficient, and intelligent Healthcare Appointment Booking System that enables seamless scheduling and management of appointments between patients and doctors. The platform ensures fast access, real-time availability, and an optimized user experience for healthcare providers and patients.",
       button: "Learn More",
       src: "https://via.placeholder.com/1200x600.png?text=EduTrack",
+      url: "https://github.com/Mabusubhani786/EduTrack",
     },
     {
-      title: "FitSync",
-      description: "A fitness app for syncing workout data with smart devices.",
+      title: "Qylix",
+      description:
+        "A sleek, tech-inspired name that sounds futuristic and innovative. Short, memorable, and unique. Perfect for a cutting-edge platform. Enhanced Role-Based Task & Communication Platform with AI & Advanced Features This next-generation platform integrates AI-powered automation, real-time collaboration, smart analytics, and intelligent insights to streamline task management, chat, ticketing, and office operations.",
       button: "Learn More",
       src: "https://via.placeholder.com/1200x600.png?text=FitSync",
+      url: "https://github.com/Mabusubhani786/FitSync",
+    },
+    {
+      title: "HarkMod",
+      description:
+        "HarkMod is a modern and feature-rich web-based music player that allows users to import, manage, and play their MP3 files. It includes real-time shared listening, offline playback, and an intuitive UI for seamless music experiences.",
+      button: "Learn More",
+      src: "https://via.placeholder.com/1200x600.png?text=FitSync",
+      url: "https://github.com/Mabusubhani786/FitSync",
     },
   ];
 
