@@ -1,11 +1,12 @@
 "use client";
 import React, { useState } from "react";
-import { AuroraText } from "@/components/magicui/aurora-text"; // Magic UI Aurora Text for animated heading
-import { Input } from "@/components/ui/input"; // shadcn/ui Input
-import { Textarea } from "@/components/ui/textarea"; // shadcn/ui Textarea
-import { Button } from "@/components/ui/button"; // shadcn/ui Button
-import { IconBrandLinkedin, IconBrandGithub } from "@tabler/icons-react"; // Removed IconMail
-import { sendContactMessage } from "@/services/apiService"; // Import from apiServices
+import { AuroraText } from "@/components/magicui/aurora-text";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { IconBrandLinkedin, IconBrandGithub } from "@tabler/icons-react";
+import { sendContactMessage } from "@/services/apiService";
+import { toast } from "sonner"; // Import toast
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -13,7 +14,7 @@ const ContactSection = () => {
     email: "",
     message: "",
   });
-  const [message, setMessage] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -24,34 +25,38 @@ const ContactSection = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setMessage(null); // Clear previous message
+    setLoading(true);
 
     try {
       const response = await sendContactMessage(formData);
-      setMessage(response.message || "Message sent successfully!");
-    } catch (error) {
-      setMessage("Failed to send message. Please try again later.");
+      toast.success(response.message || "Message sent successfully!");
+
+      // Clear the form on success
+      setFormData({
+        name: "",
+        email: "",
+        message: "",
+      });
+    } catch (error: any) {
+      toast.error(
+        error?.message || "Failed to send message. Please try again later."
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="min-h-screen bg-[#000000] flex items-center justify-center py-[2%] px-[2%]">
       <div className="relative z-10 max-w-[90%] mx-auto">
-        {/* Contact Heading */}
         <h1 className="text-[0.8125rem] font-bold text-white text-center mb-[5%] relative">
-          <AuroraText
-            className="text-white"
-            colors={["#3b82f6", "#8b5cf6"]} // Blue to purple gradient
-          >
+          <AuroraText className="text-white" colors={["#3b82f6", "#8b5cf6"]}>
             Contact Me
           </AuroraText>
-          {/* Aceternity UI Spotlight Effect */}
           <div className="absolute inset-0 -z-10 bg-gradient-to-r from-transparent via-blue-500/20 to-transparent h-full w-full" />
         </h1>
 
-        {/* Contact Form and Social Links */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Contact Form */}
           <div className="bg-black border border-neutral-700 rounded-lg p-6 transition-transform transform hover:scale-105">
             <h2 className="text-[0.75rem] font-semibold text-white mb-4">
               Send a Message
@@ -109,13 +114,11 @@ const ContactSection = () => {
               </div>
               <Button
                 type="submit"
+                disabled={loading}
                 className="bg-blue-500 hover:bg-blue-600 text-white text-[0.625rem] px-4 py-2 rounded-full w-full"
               >
-                Send Message
+                {loading ? "Sending..." : "Send Message"}
               </Button>
-              {message && (
-                <p className="text-[0.625rem] text-gray-400 mt-2">{message}</p>
-              )}
               <p className="text-[0.625rem] text-gray-400">
                 Note: Form submission is disabled due to sandbox restrictions.
                 This form would typically submit to a backend endpoint.
@@ -123,7 +126,6 @@ const ContactSection = () => {
             </form>
           </div>
 
-          {/* Social Links */}
           <div className="bg-black border border-neutral-700 rounded-lg p-6 flex flex-col items-center justify-center transition-transform transform hover:scale-105">
             <h2 className="text-[0.75rem] font-semibold text-white mb-6">
               Connect with Me
@@ -148,7 +150,7 @@ const ContactSection = () => {
             </div>
             <AuroraText
               className="text-[1rem] text-center"
-              colors={["#3b82f6", "#8b5cf6"]} // Blue to purple gradient
+              colors={["#3b82f6", "#8b5cf6"]}
             >
               subhanishaik3849@gmail.com
             </AuroraText>

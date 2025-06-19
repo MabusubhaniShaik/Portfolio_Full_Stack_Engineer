@@ -9,14 +9,15 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import ZentriImg from "../assets/projectImg/Zentri.png";
 import FrameFlixImg from "../assets/projectImg/FrameFlix.png";
 
 interface SlideData {
   title: string;
-  button: string;
   src: string;
   description: string;
+  button?: string;
   url?: string;
 }
 
@@ -25,9 +26,7 @@ const ProjectSection = () => {
     {
       title: "Zentri",
       description: "Minimalist financial platform for budgeting and tracking.",
-      button: "Learn More",
       src: ZentriImg,
-      url: "https://zentri.com",
     },
     {
       title: "FrameFlix",
@@ -38,30 +37,24 @@ const ProjectSection = () => {
     },
   ];
 
-  const upcomingProjects: SlideData[] = [
+  const upcomingProjects: Omit<SlideData, "button" | "url">[] = [
     {
       title: "VeloxMediQ",
       description:
         "VeloxMediQ – Healthcare Appointment Booking System that enables seamless scheduling and management of appointments.",
       src: "https://via.placeholder.com/200x120.png?text=VeloxMediQ",
-      button: "Doc Link",
-      url: "https://github.com/Mabusubhani786/VeloxMediQ",
     },
     {
       title: "Qylix",
       description:
         "A sleek, tech-inspired platform integrating AI-powered automation and real-time collaboration.",
-      button: "Doc Link",
       src: "https://via.placeholder.com/200x120.png?text=Qylix",
-      url: "https://github.com/Mabusubhani786/Qylix",
     },
     {
       title: "HarkMod",
       description:
         "Modern web-based music player with real-time shared listening and offline playback.",
-      button: "Doc Link",
       src: "https://via.placeholder.com/200x120.png?text=HarkMod",
-      url: "https://github.com/Mabusubhani786/HarkMod",
     },
   ];
 
@@ -102,15 +95,17 @@ const ProjectSection = () => {
                               {slide.description}
                             </p>
                             {slide.url && (
-                              <button
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  handleSlideClick(slide.url);
-                                }}
-                                className="mt-2 px-3 py-1 w-fit mx-auto text-[0.625rem] text-black bg-white h-10 border border-transparent flex justify-center items-center rounded-2xl hover:shadow-lg transition duration-200 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]"
-                              >
-                                {slide.button}
-                              </button>
+                              <Button variant="link">
+                                <a
+                                  href={slide?.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  onClick={(e) => e.stopPropagation()}
+                                  className="text-[1rem] font-bold text-white text-center"
+                                >
+                                  {slide?.button}
+                                </a>
+                              </Button>
                             )}
                           </div>
                         </div>
@@ -138,25 +133,13 @@ const ProjectSection = () => {
             {upcomingProjects.map((slide, index) => (
               <Card
                 key={index}
-                className="w-[21rem] h-[12rem] bg-[#111] text-white flex flex-col justify-between rounded-lg shadow-md"
+                className="w-[21rem] h-[12rem] bg-[#111] text-white flex flex-col justify-start rounded-lg shadow-md"
               >
-                <CardContent className="p-4 flex flex-col justify-between h-full overflow-hidden">
-                  <div>
-                    <h3 className="text-sm font-semibold mb-2 truncate">
-                      {slide.title}
-                    </h3>
-                    <p className="text-xs text-gray-300 mb-4 line-clamp-[10] overflow-hidden">
-                      {slide.description}
-                    </p>
-                  </div>
-                  {slide.url && (
-                    <button
-                      onClick={() => handleSlideClick(slide.url)}
-                      className="mt-auto text-xs text-black bg-white px-3 py-1 rounded-md hover:bg-gray-200"
-                    >
-                      {slide.button}
-                    </button>
-                  )}
+                <CardContent className="p-4 overflow-auto">
+                  <h3 className="text-sm font-semibold mb-2 truncate">
+                    {slide.title}
+                  </h3>
+                  <p className="text-xs text-gray-300">{slide.description}</p>
                 </CardContent>
               </Card>
             ))}
