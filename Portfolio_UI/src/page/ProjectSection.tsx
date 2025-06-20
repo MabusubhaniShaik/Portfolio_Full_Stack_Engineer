@@ -1,5 +1,4 @@
 "use client";
-import * as React from "react";
 import { AuroraText } from "@/components/magicui/aurora-text";
 import {
   Carousel,
@@ -58,11 +57,11 @@ const ProjectSection = () => {
     },
   ];
 
-  const handleSlideClick = (url?: string) => {
-    if (url) {
-      window.location.href = url;
-    }
-  };
+  // const handleSlideClick = (url?: string) => {
+  //   if (url) {
+  //     window.location.href = url;
+  //   }
+  // };
 
   return (
     <div className="min-h-screen bg-[#000000] flex items-center justify-center py-[2%] px-[2%]">

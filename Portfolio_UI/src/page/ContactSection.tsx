@@ -6,7 +6,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { IconBrandLinkedin, IconBrandGithub } from "@tabler/icons-react";
 import { sendContactMessage } from "@/services/apiService";
-import { toast } from "sonner"; // Import toast
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -29,8 +28,7 @@ const ContactSection = () => {
 
     try {
       const response = await sendContactMessage(formData);
-      toast.success(response.message || "Message sent successfully!");
-
+      console.error(response.message || "Message sent successfully!");
       // Clear the form on success
       setFormData({
         name: "",
@@ -38,7 +36,7 @@ const ContactSection = () => {
         message: "",
       });
     } catch (error: any) {
-      toast.error(
+      console.log(
         error?.message || "Failed to send message. Please try again later."
       );
     } finally {
