@@ -42,11 +42,11 @@ const HomeSection: React.FC = () => {
           features, and robust backend systems.
         </p>
 
-        <div className="mt-8">
+        {/* <div className="mt-8">
           <Button className="bg-transparent border-[#00e6e6] text-[#00e6e6] hover:bg-[#00e6e6] hover:text-[#0d0d0d] transition-all duration-300 px-8 py-3 text-lg font-semibold  shadow-lg shadow-[#00e6e6]/50 hover:shadow-[#00e6e6]/80 animate-pulse">
             View Projects
           </Button>
-        </div>
+        </div> */}
       </div>
 
       {/* Minimal twinkle keyframes only */}
